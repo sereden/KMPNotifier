@@ -13,16 +13,10 @@ plugins {
 
 kotlin {
 
-    androidTarget {
-        compilations.all {
-            kotlinOptions {
-                jvmTarget = "1.8"
-            }
-        }
-    }
+    androidTarget()
     @OptIn(ExperimentalWasmDsl::class)
     wasmJs {
-        moduleName = "sample"
+        outputModuleName.set("sample")
         browser {
             commonWebpackConfig {
                 outputFileName = "sample.js"

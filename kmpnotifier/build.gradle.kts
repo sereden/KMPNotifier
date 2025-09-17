@@ -12,11 +12,6 @@ kotlin {
     explicitApi()
     androidTarget {
         publishAllLibraryVariants()
-        compilations.all {
-            kotlinOptions {
-                jvmTarget = "1.8"
-            }
-        }
     }
 
 //    @OptIn(ExperimentalWasmDsl::class)

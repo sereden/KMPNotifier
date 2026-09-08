@@ -22,15 +22,17 @@ internal class MyFirebaseMessagingService : FirebaseMessagingService() {
     override fun onMessageReceived(message: RemoteMessage) {
         super.onMessageReceived(message)
         val payloadData = message.data
-        message.notification?.let {
+        val title = message.notification?.title ?: payloadData[Constants.KEY_DATA_TITLE]
+        val body = message.notification?.body ?: payloadData[Constants.KEY_DATA_BODY]
+        if (title != null || body != null) {
             if (notifierManager.shouldShowNotification())
                 notifier.notify(
-                    title = it.title ?: "",
-                    body = it.body ?: "",
+                    title = title ?: "",
+                    body = body ?: "",
                     payloadData = payloadData
                 )
 
-            notifierManager.onPushNotification(title = it.title, body = it.body)
+            notifierManager.onPushNotification(title = title, body = body)
         }
         if (payloadData.isNotEmpty()) {
             val data =
